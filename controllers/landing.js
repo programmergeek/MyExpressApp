@@ -29,4 +29,29 @@ exports.show_lead = function(req, res, next){
   })
 }
 
+exports.show_edit_lead = function(req, res, next){
+  return models.Lead.findOne({
+    where: {
+      id: req.params.lead_id
+    }
+  }).then(lead => {
+    res.render('lead/edit_lead', {lead: lead})
+  })
+}
+
+exports.edit_lead = function(req, res, next){
+  req.params.lead_id
+  req.body.lead_email
+
+  return models.Lead.update({
+    email: req.body.lead_email
+  }, {
+    where:{
+      id: req.params.lead_id
+    }
+  }).then(results => {
+    res.redirect('/lead/'+req.params.lead_id)
+  })
+}
+
   //These allow us to separate the routes and the logic from each other
