@@ -64,4 +64,14 @@ exports.delete_lead =function(req, res, next) {
   })
 }
 
+exports.delete_lead_json =function(req, res, next) {
+  return models.Lead.destroy({
+    where: {
+      id: req.params.lead_id
+    }
+  }).then(results =>{
+    res.send({msg: "Success"})
+  })
+}
+
   //These allow us to separate the routes and the logic from each other
